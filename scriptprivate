@@ -1,0 +1,466 @@
+local function ESP(part, text)
+	if not part:FindFirstChild("BillboardGui") then
+		local BillboardGui = Instance.new("BillboardGui")
+		local TextLabel = Instance.new("TextLabel")
+
+		--Properties:
+
+		BillboardGui.Parent = part
+		BillboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+		BillboardGui.Active = true
+		BillboardGui.AlwaysOnTop = true
+		BillboardGui.LightInfluence = 1.000
+		BillboardGui.MaxDistance = 300.000
+		BillboardGui.Size = UDim2.new(0, 200, 0, 50)
+
+		TextLabel.Parent = BillboardGui
+		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		TextLabel.BackgroundTransparency = 1.000
+		TextLabel.Size = UDim2.new(0, 200, 0, 50)
+		TextLabel.Font = Enum.Font.SourceSans
+		TextLabel.Text = text
+		TextLabel.TextColor3 = Color3.fromRGB(255, 132, 32)
+		TextLabel.TextScaled = true
+		TextLabel.TextSize = 14.000
+		TextLabel.TextStrokeTransparency = 0.000
+		TextLabel.TextWrapped = true
+	end
+end
+
+local function delESP(part)
+	if part:FindFirstChild("BillboardGui") then
+		part:FindFirstChild("BillboardGui"):Destroy()
+	end
+end
+
+local toogleFB = false
+local toogleDoorESP = false
+local tooglePLRESP = false
+local toogleFigureCAM = false
+local toogleKeyESP = false
+local toogleAutoRooms = false
+
+local ScreenGui = Instance.new("ScreenGui")
+local Gui = Instance.new("ImageLabel")
+local GuiPart = Instance.new("Frame")
+local GuiPart_2 = Instance.new("Frame")
+local GuiPart_3 = Instance.new("Frame")
+local GuiMainList = Instance.new("TextLabel")
+local GuiNameBorder = Instance.new("Frame")
+
+local GuiName = Instance.new("TextLabel")
+local GuiItemsList = Instance.new("TextLabel")
+local GuiFunList = Instance.new("TextLabel")
+local MainButtons = Instance.new("Folder")
+local DoorESP = Instance.new("TextButton")
+local PlayerESP = Instance.new("TextButton")
+local ItemsButtons = Instance.new("Folder")
+local Vitamin = Instance.new("TextButton")
+local Tablet = Instance.new("TextButton")
+local Aplush = Instance.new("TextButton")
+local FunButtons = Instance.new("Folder")
+local FigCam = Instance.new("TextButton")
+local TextLabel = Instance.new("TextLabel")
+local UsefullButtons = Instance.new("Folder")
+local KeyESP = Instance.new("TextButton")
+local FB = Instance.new("TextButton")
+local Auto1000 = Instance.new("TextButton")
+
+--Properties:
+
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Gui.Name = "Gui"
+Gui.Parent = ScreenGui
+Gui.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Gui.Position = UDim2.new(0.345156878, 0, 0.25, 0)
+Gui.Size = UDim2.new(0, 282, 0, 354)
+Gui.Image = "http://www.roblox.com/asset/?id=2129345445"
+
+local UIS = game:GetService("UserInputService")
+function dragify(Frame)
+	dragToggle = nil
+	dragInput = nil
+	dragStart = nil
+	dragPos = nil
+	function updateInput(input)
+		Delta = input.Position - dragStart
+		Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + Delta.X, startPos.Y.Scale, startPos.Y.Offset + Delta.Y)
+		Frame.Position = Position
+	end
+	Frame.InputBegan:Connect(function(input)
+		if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and UIS:GetFocusedTextBox() == nil then
+			dragToggle = true
+			dragStart = input.Position
+			startPos = Frame.Position
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragToggle = false
+				end
+			end)
+		end
+	end)
+	Frame.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+	game:GetService("UserInputService").InputChanged:Connect(function(input)
+		if input == dragInput and dragToggle then
+			updateInput(input)
+		end
+	end)
+end
+dragify(Gui)
+
+GuiPart.Name = "GuiPart"
+GuiPart.Parent = Gui
+GuiPart.BackgroundColor3 = Color3.fromRGB(150, 95, 58)
+GuiPart.Position = UDim2.new(0.958724022, 0, 0.0504597425, 0)
+GuiPart.Size = UDim2.new(0, 11, 0, 336)
+
+GuiPart_2.Name = "GuiPart"
+GuiPart_2.Parent = Gui
+GuiPart_2.BackgroundColor3 = Color3.fromRGB(68, 81, 125)
+GuiPart_2.Position = UDim2.new(-0.00318810344, 0, 0.0504597425, 0)
+GuiPart_2.Size = UDim2.new(0, 11, 0, 324)
+
+GuiPart_3.Name = "GuiPart"
+GuiPart_3.Parent = Gui
+GuiPart_3.BackgroundColor3 = Color3.fromRGB(141, 12, 0)
+GuiPart_3.Position = UDim2.new(-0.00318810344, 0, 0.96405232, 0)
+GuiPart_3.Size = UDim2.new(0, 282, 0, 12)
+
+GuiMainList.Name = "GuiMainList"
+GuiMainList.Parent = Gui
+GuiMainList.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GuiMainList.Position = UDim2.new(0.0358189791, 0, 0.10972634, 0)
+GuiMainList.Size = UDim2.new(0, 77, 0, 16)
+GuiMainList.Font = Enum.Font.SourceSans
+GuiMainList.Text = "Main"
+GuiMainList.TextColor3 = Color3.fromRGB(0, 0, 0)
+GuiMainList.TextSize = 14.000
+
+GuiNameBorder.Name = "GuiNameBorder"
+GuiNameBorder.Parent = Gui
+GuiNameBorder.BackgroundColor3 = Color3.fromRGB(44, 227, 255)
+GuiNameBorder.Position = UDim2.new(-0.00318810344, 0, -0.00155091286, 0)
+GuiNameBorder.Size = UDim2.new(0, 282, 0, 18)
+
+GuiName.Name = "GuiName"
+GuiName.Parent = GuiNameBorder
+GuiName.BackgroundColor3 = Color3.fromRGB(139, 136, 93)
+GuiName.Position = UDim2.new(0.144944996, 0, -0.00155090541, 0)
+GuiName.Size = UDim2.new(0, 200, 0, 18)
+GuiName.Font = Enum.Font.SourceSans
+GuiName.Text = "OPYcookie"
+GuiName.TextColor3 = Color3.fromRGB(137, 166, 57)
+GuiName.TextSize = 14.000
+
+GuiItemsList.Name = "GuiItemsList"
+GuiItemsList.Parent = Gui
+GuiItemsList.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GuiItemsList.Position = UDim2.new(0.359612197, 0, 0.109726354, 0)
+GuiItemsList.Size = UDim2.new(0, 78, 0, 16)
+GuiItemsList.Font = Enum.Font.SourceSans
+GuiItemsList.Text = "Items"
+GuiItemsList.TextColor3 = Color3.fromRGB(0, 0, 0)
+GuiItemsList.TextSize = 14.000
+
+GuiFunList.Name = "GuiFunList"
+GuiFunList.Parent = Gui
+GuiFunList.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GuiFunList.Position = UDim2.new(0.678761125, 0, 0.109726354, 0)
+GuiFunList.Size = UDim2.new(0, 78, 0, 16)
+GuiFunList.Font = Enum.Font.SourceSans
+GuiFunList.Text = "Fun"
+GuiFunList.TextColor3 = Color3.fromRGB(0, 0, 0)
+GuiFunList.TextSize = 14.000
+
+MainButtons.Name = "MainButtons"
+MainButtons.Parent = Gui
+
+DoorESP.Name = "DoorESP"
+DoorESP.Parent = MainButtons
+DoorESP.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+DoorESP.Position = UDim2.new(0.0354610085, 0, 0.316384196, 0)
+DoorESP.Size = UDim2.new(0, 81, 0, 16)
+DoorESP.Font = Enum.Font.SourceSans
+DoorESP.Text = "Door ESP"
+DoorESP.TextColor3 = Color3.fromRGB(0, 0, 0)
+DoorESP.TextSize = 14.000
+
+DoorESP.MouseButton1Click:Connect(function()
+	toogleDoorESP = not toogleDoorESP
+
+	if toogleDoorESP == true then
+		DoorESP.BackgroundColor3 = Color3.fromRGB(6, 255, 2)
+	else
+		DoorESP.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+	end
+end)
+
+PlayerESP.Name = "PlayerESP"
+PlayerESP.Parent = MainButtons
+PlayerESP.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+PlayerESP.Position = UDim2.new(0.0354610085, 0, 0.384180814, 0)
+PlayerESP.Size = UDim2.new(0, 81, 0, 16)
+PlayerESP.Font = Enum.Font.SourceSans
+PlayerESP.Text = "Player ESP"
+PlayerESP.TextColor3 = Color3.fromRGB(0, 0, 0)
+PlayerESP.TextSize = 14.000
+
+PlayerESP.MouseButton1Click:Connect(function()
+	tooglePLRESP = not tooglePLRESP
+
+	if tooglePLRESP == true then
+		PlayerESP.BackgroundColor3 = Color3.fromRGB(6, 255, 2)
+	else
+		PlayerESP.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+	end
+end)
+
+ItemsButtons.Name = "ItemsButtons"
+ItemsButtons.Parent = Gui
+
+Vitamin.Name = "Vitamin"
+Vitamin.Parent = ItemsButtons
+Vitamin.BackgroundColor3 = Color3.fromRGB(152, 219, 255)
+Vitamin.Position = UDim2.new(0.358156025, 0, 0.177966118, 0)
+Vitamin.Size = UDim2.new(0, 81, 0, 16)
+Vitamin.Font = Enum.Font.SourceSans
+Vitamin.Text = "Vitamins"
+Vitamin.TextColor3 = Color3.fromRGB(0, 0, 0)
+Vitamin.TextSize = 14.000
+
+Vitamin.MouseButton1Click:Connect(function()
+	local tool = game:GetObjects("rbxassetid://12918957216")[1]
+	tool.Parent = game.Players.LocalPlayer.Backpack
+
+	local anim = Instance.new("Animation")
+	anim.Name = "idle"
+	anim.AnimationId = "rbxassetid://10479585177"
+	local idle = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(anim)
+
+	local anim = Instance.new("Animation")
+	anim.Name = "open"
+	anim.AnimationId = "rbxassetid://10482563149"
+	local use = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(anim)
+
+	tool.Equipped:Connect(function()
+		idle:Play()
+	end)
+
+	tool.Unequipped:Connect(function()
+		idle:Stop()
+	end)
+
+	local using = false
+	tool.Activated:Connect(function()
+		if using == false then
+			using = true
+			use:Play()
+			tool.Handle.sound_open:Play()
+			task.wait(0.5)
+			using = false
+			tool:Destroy()
+			use:Stop()
+			local OldSpeedBoost = game.Players.LocalPlayer.Character.Humanoid:GetAttribute("SpeedBoost")
+			game.Players.LocalPlayer.Character.Humanoid:SetAttribute("SpeedBoost", getgenv().CustomVitamins.SpeedBoost + OldSpeedBoost)
+			task.wait(getgenv().CustomVitamins.EffectDuration)
+			game.Players.LocalPlayer.Character.Humanoid:SetAttribute("SpeedBoost", OldSpeedBoost)
+		end
+	end)
+end)
+
+Tablet.Name = "Tablet"
+Tablet.Parent = ItemsButtons
+Tablet.BackgroundColor3 = Color3.fromRGB(152, 219, 255)
+Tablet.Position = UDim2.new(0.351063818, 0, 0.248587579, 0)
+Tablet.Size = UDim2.new(0, 81, 0, 16)
+Tablet.Font = Enum.Font.SourceSans
+Tablet.Text = "Tablet"
+Tablet.TextColor3 = Color3.fromRGB(0, 0, 0)
+Tablet.TextSize = 14.000
+Tablet.Visible = false
+
+Aplush.Name = "Aplush"
+Aplush.Parent = ItemsButtons
+Aplush.BackgroundColor3 = Color3.fromRGB(152, 219, 255)
+Aplush.Position = UDim2.new(0.358156025, 0, 0.316384196, 0)
+Aplush.Size = UDim2.new(0, 81, 0, 16)
+Aplush.Font = Enum.Font.SourceSans
+Aplush.Text = "A-60 Plush"
+Aplush.TextColor3 = Color3.fromRGB(0, 0, 0)
+Aplush.TextSize = 14.000
+Aplush.Visible = false
+
+FunButtons.Name = "FunButtons"
+FunButtons.Parent = Gui
+
+FigCam.Name = "FigCam"
+FigCam.Parent = FunButtons
+FigCam.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+FigCam.Position = UDim2.new(0.677304983, 0, 0.177966118, 0)
+FigCam.Size = UDim2.new(0, 81, 0, 16)
+FigCam.Font = Enum.Font.SourceSans
+FigCam.Text = "Figure Camera"
+FigCam.TextColor3 = Color3.fromRGB(0, 0, 0)
+FigCam.TextSize = 14.000
+
+FigCam.MouseButton1Click:Connect(function()
+	toogleFigureCAM = not toogleFigureCAM
+
+	if toogleFigureCAM == true then
+		FigCam.BackgroundColor3 = Color3.fromRGB(6, 255, 2)
+	else
+		FigCam.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+	end
+end)
+
+TextLabel.Parent = Gui
+TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.Position = UDim2.new(0.0358189791, 0, 0.734463274, 0)
+TextLabel.Size = UDim2.new(0, 258, 0, 18)
+TextLabel.Font = Enum.Font.SourceSans
+TextLabel.Text = "Usefull"
+TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel.TextSize = 14.000
+
+UsefullButtons.Name = "UsefullButtons"
+UsefullButtons.Parent = Gui
+
+KeyESP.Name = "KeyESP"
+KeyESP.Parent = UsefullButtons
+KeyESP.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+KeyESP.Position = UDim2.new(0.0992907807, 0, 0.824858725, 0)
+KeyESP.Size = UDim2.new(0, 131, 0, 16)
+KeyESP.Font = Enum.Font.SourceSans
+KeyESP.Text = "Key And Lever ESP"
+KeyESP.TextColor3 = Color3.fromRGB(0, 0, 0)
+KeyESP.TextSize = 14.000
+
+KeyESP.MouseButton1Click:Connect(function()
+	toogleKeyESP = not toogleKeyESP
+
+	if toogleKeyESP == true then
+		KeyESP.BackgroundColor3 = Color3.fromRGB(6, 255, 2)
+	else
+		KeyESP.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+	end
+end)
+
+FB.Name = "FB"
+FB.Parent = UsefullButtons
+FB.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+FB.Position = UDim2.new(0.56382978, 0, 0.824858785, 0)
+FB.Size = UDim2.new(0, 81, 0, 16)
+FB.Font = Enum.Font.SourceSans
+FB.Text = "FullBright"
+FB.TextColor3 = Color3.fromRGB(0, 0, 0)
+FB.TextSize = 14.000
+FB.Visible = false
+
+FB.MouseButton1Click:Connect(function()
+	toogleFB = not toogleFB
+	
+	if toogleFB == true then
+		FB.BackgroundColor3 = Color3.fromRGB(6, 255, 2)
+	else
+		FB.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+	end
+end)
+
+Auto1000.Name = "Auto1000"
+Auto1000.Parent = UsefullButtons
+Auto1000.BackgroundColor3 = Color3.fromRGB(152, 219, 255)
+Auto1000.Position = UDim2.new(0.0992907807, 0, 0.87005651, 0)
+Auto1000.Size = UDim2.new(0, 212, 0, 16)
+Auto1000.Font = Enum.Font.SourceSans
+Auto1000.Text = "Auto A-1000 (MUST BE IN ROOMS"
+Auto1000.TextColor3 = Color3.fromRGB(0, 0, 0)
+Auto1000.TextSize = 14.000
+Auto1000.Visible = false
+
+game:GetService("RunService").RenderStepped:Connect(function()
+	if toogleDoorESP == true then
+		for _, v in pairs(game.Workspace:FindFirstChild("CurrentRooms"):GetChildren()) do
+			ESP(v:FindFirstChild("Door"), "Door")
+		end
+	else
+		for _, v in pairs(game.Workspace:FindFirstChild("CurrentRooms"):GetChildren()) do
+			delESP(v:FindFirstChild("Door"))
+		end
+	end
+	
+	if toogleKeyESP == true then
+		for _, v in pairs(workspace:FindFirstChild("CurrentRooms"):GetChildren()) do
+			if v:FindFirstChild("Assets"):FindFirstChild("KeyObtain") then
+				ESP(v:FindFirstChild("Assets"):FindFirstChild("KeyObtain"), "Key")
+			elseif v:FindFirstChild("Assets"):FindFirstChild("LeverForGate") then
+				ESP(v:FindFirstChild("Assets"):FindFirstChild("LeverForGate"), "Lever")
+			elseif v:FindFirstChild("Assets"):FindFirstChild("Super Cool Bookshelf With Hint") then
+				ESP(v:FindFirstChild("Assets"):FindFirstChild("Super Cool Bookshelf With Hint"):FindFirstChild("LiveHintBook"), "Book")
+			else
+				for _, v2 in pairs(v:FindFirstChild("Assets"):GetChildren()) do
+					if v2.Name == "Dresser" then
+						for _, v3 in pairs(v2:GetChildren()) do
+							if v3.Name == "DrawerContainer" then
+								if v3:FindFirstChild("KeyObtain") then
+									ESP(v3:FindFirstChild("KeyObtain", "Key"))
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+	else
+		for _, v in pairs(workspace:FindFirstChild("CurrentRooms"):GetChildren()) do
+			if v:FindFirstChild("Assets"):FindFirstChild("KeyObtain") then
+				delESP(v:FindFirstChild("Assets"):FindFirstChild("KeyObtain"))
+			elseif v:FindFirstChild("Assets"):FindFirstChild("LeverForGate") then
+				delESP(v:FindFirstChild("Assets"):FindFirstChild("LeverForGate"))
+			elseif v:FindFirstChild("Assets"):FindFirstChild("Super Cool Bookshelf With Hint") then
+				delESP(v:FindFirstChild("Assets"):FindFirstChild("Super Cool Bookshelf With Hint"):FindFirstChild("LiveHintBook"))
+			else
+				for _, v2 in pairs(v:FindFirstChild("Assets"):GetChildren()) do
+					if v2.Name == "Dresser" then
+						for _, v3 in pairs(v2:GetChildren()) do
+							if v3.Name == "DrawerContainer" then
+								if v3:FindFirstChild("KeyObtain") then
+									delESP(v3:FindFirstChild("KeyObtain"))
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+	
+	if tooglePLRESP == true then
+		for _, v in pairs(game.Players:GetPlayers()) do
+			if v.Name ~= game.Players.LocalPlayer then
+				local char = v.Character
+				ESP(char, v.Name)
+			end
+		end
+	else
+		for _, v in pairs(game.Players:GetPlayers()) do
+			if v.Name ~= game.Players.LocalPlayer then
+				local char = v.Character
+				delESP(char)
+			end
+		end
+	end
+	
+	if toogleFigureCAM == true then
+		if workspace:FindFirstChild("CurrentRooms"):FindFirstChild("50") then
+			workspace.CurrentCamera.CFrame = workspace.CurrentRooms[50].FigureSetup.FigureRagdoll.Head.CFrame
+		elseif workspace:FindFirstAncestor("CurrentRooms"):FindFirstChild("100") then
+			workspace.CurrentCamera.CFrame = workspace.CurrentRooms[100].FigureSetup.FigureRagdoll.Head.CFrame	
+		end
+	end
+end)
