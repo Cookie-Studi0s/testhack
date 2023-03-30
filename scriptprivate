@@ -1,3 +1,8 @@
+local fakeentitypos
+local toogled = false
+
+fakeentitypos = 0 - 10000
+
 local function ESP(part, text)
 	if not part:FindFirstChild("BillboardGui") then
 		local BillboardGui = Instance.new("BillboardGui")
@@ -70,6 +75,7 @@ local Auto1000 = Instance.new("TextButton")
 
 ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGui.Enabled = false
 
 Gui.Name = "Gui"
 Gui.Parent = ScreenGui
@@ -402,10 +408,6 @@ game:GetService("RunService").RenderStepped:Connect(function()
 		for _, v in pairs(workspace:FindFirstChild("CurrentRooms"):GetChildren()) do
 			if v:FindFirstChild("Assets"):FindFirstChild("KeyObtain") then
 				ESP(v:FindFirstChild("Assets"):FindFirstChild("KeyObtain"), "Key")
-			elseif v:FindFirstChild("Assets"):FindFirstChild("LeverForGate") then
-				ESP(v:FindFirstChild("Assets"):FindFirstChild("LeverForGate"), "Lever")
-			elseif v:FindFirstChild("Assets"):FindFirstChild("Super Cool Bookshelf With Hint") then
-				ESP(v:FindFirstChild("Assets"):FindFirstChild("Super Cool Bookshelf With Hint"):FindFirstChild("LiveHintBook"), "Book")
 			else
 				for _, v2 in pairs(v:FindFirstChild("Assets"):GetChildren()) do
 					if v2.Name == "Dresser" then
@@ -424,10 +426,6 @@ game:GetService("RunService").RenderStepped:Connect(function()
 		for _, v in pairs(workspace:FindFirstChild("CurrentRooms"):GetChildren()) do
 			if v:FindFirstChild("Assets"):FindFirstChild("KeyObtain") then
 				delESP(v:FindFirstChild("Assets"):FindFirstChild("KeyObtain"))
-			elseif v:FindFirstChild("Assets"):FindFirstChild("LeverForGate") then
-				delESP(v:FindFirstChild("Assets"):FindFirstChild("LeverForGate"))
-			elseif v:FindFirstChild("Assets"):FindFirstChild("Super Cool Bookshelf With Hint") then
-				delESP(v:FindFirstChild("Assets"):FindFirstChild("Super Cool Bookshelf With Hint"):FindFirstChild("LiveHintBook"))
 			else
 				for _, v2 in pairs(v:FindFirstChild("Assets"):GetChildren()) do
 					if v2.Name == "Dresser" then
@@ -440,6 +438,34 @@ game:GetService("RunService").RenderStepped:Connect(function()
 						end
 					end
 				end
+			end
+		end
+	end
+	
+	if toogleKeyESP == true then
+		for _, v in pairs(workspace:FindFirstChild("CurrentRooms"):GetChildren()) do
+			if v:FindFirstChild("Assets"):FindFirstChild("LeverForGate") then
+				ESP(v:FindFirstChild("Assets"):FindFirstChild("LeverForGate"), "Lever")
+			end
+		end
+	else
+		for _, v in pairs(workspace:FindFirstChild("CurrentRooms"):GetChildren()) do
+			if v:FindFirstChild("Assets"):FindFirstChild("LeverForGate") then
+				delESP(v:FindFirstChild("Assets"):FindFirstChild("LeverForGate"))
+			end
+		end
+	end
+	
+	if toogleKeyESP == true then
+		for _, v in pairs(workspace:FindFirstChild("CurrentRooms"):GetChildren()) do
+			if v:FindFirstChild("Assets"):FindFirstChild("Super Cool Bookshelf With Hint") then
+				ESP(v:FindFirstChild("Assets"):FindFirstChild("Super Cool Bookshelf With Hint"):FindFirstChild("LiveHintBook"), "Book")
+			end
+		end
+	else
+		for _, v in pairs(workspace:FindFirstChild("CurrentRooms"):GetChildren()) do
+			if v:FindFirstChild("Assets"):FindFirstChild("Super Cool Bookshelf With Hint") then
+				delESP(v:FindFirstChild("Assets"):FindFirstChild("Super Cool Bookshelf With Hint"):FindFirstChild("LiveHintBook"))
 			end
 		end
 	end
@@ -471,5 +497,50 @@ game:GetService("RunService").RenderStepped:Connect(function()
 	if toogleFB == true then
 		game.Lighting.GlobalShadows = false
 		game.Lighting.Brightness = 6
+	end
+end)
+
+local tooglekeypad = Enum.KeyCode.RightShift
+
+UIS.InputBegan:Connect(function(key)
+	if key == tooglekeypad then
+		toogled = not toogled
+		ScreenGui.Enabled = toogled
+		
+		if toogled == true then
+			game.Workspace.CurrentCamera.CameraType = Enum.CameraType.Scriptable
+		else
+			game.Workspace.CurrentCamera.CameraType = Enum.CameraType.Custom
+		end
+	end
+end)
+
+game.Workspace.ChildAdded:Connect(function(child)
+	if child:IsA("Model") then
+		if child.Name == "RushMoving" or child.Name == "AmbushMoving" then
+			if child:FindFirstChild("RushNew").Position.Y ~= fakeentitypos then
+				local Notifier = Instance.new("ScreenGui")
+				local Title = Instance.new("TextLabel")
+
+				--Properties:
+
+				Notifier.Name = "Notifier"
+				Notifier.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+				Notifier.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+				Title.Name = "Title"
+				Title.Parent = Notifier
+				Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+				Title.BackgroundTransparency = 1.000
+				Title.Position = UDim2.new(0.426362306, 0, 0.936666667, 0)
+				Title.Size = UDim2.new(0, 200, 0, 50)
+				Title.Font = Enum.Font.SourceSansBold
+				Title.Text = "Entity, be careful"
+				Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+				Title.TextScaled = true
+				Title.TextSize = 14.000
+				Title.TextWrapped = true
+			end
+		end
 	end
 end)
