@@ -283,7 +283,12 @@ Tablet.Font = Enum.Font.SourceSans
 Tablet.Text = "Tablet"
 Tablet.TextColor3 = Color3.fromRGB(0, 0, 0)
 Tablet.TextSize = 14.000
-Tablet.Visible = false
+
+Tablet.MouseButton1Click:Connect(function()
+	_G.OnShop = true
+
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/DeividComSono/Scripts/main/Scanner.lua'))()
+end)
 
 Aplush.Name = "Aplush"
 Aplush.Parent = ItemsButtons
@@ -360,7 +365,6 @@ FB.Font = Enum.Font.SourceSans
 FB.Text = "FullBright"
 FB.TextColor3 = Color3.fromRGB(0, 0, 0)
 FB.TextSize = 14.000
-FB.Visible = false
 
 FB.MouseButton1Click:Connect(function()
 	toogleFB = not toogleFB
@@ -462,5 +466,10 @@ game:GetService("RunService").RenderStepped:Connect(function()
 		elseif workspace:FindFirstAncestor("CurrentRooms"):FindFirstChild("100") then
 			workspace.CurrentCamera.CFrame = workspace.CurrentRooms[100].FigureSetup.FigureRagdoll.Head.CFrame	
 		end
+	end
+	
+	if toogleFB == true then
+		game.Lighting.GlobalShadows = false
+		game.Lighting.Brightness = 6
 	end
 end)
